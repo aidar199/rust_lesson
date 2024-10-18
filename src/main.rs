@@ -1,28 +1,32 @@
-fn main() {
-    //Option - системное перечисление с вариантами, доступными в области
-    //enum Option<T> {
-    //    None,
-    //    Some(T),
-    //}
-    let some_number = Some(5);
-    let some_char = Some('e');
+#[derive(Debug)]
+//Доработка Coin
+enum UsState {
+    Alabama,
+    Alaska,
+    // --snip--
+}
 
-    let absent_number: Option<i32> = None;
+//Конструкция потока управления match
+enum Coin {
+    Penny,
+    Nickel,
+    Dime,
+    Quarter(UsState),
+}
 
-    
-
-    //Новый тип перечисления
-    enum Message {
-        Quit,
-        Move {x: i32, y: i32},
-        Write(String),
-        ChangeColor(i32, i32, i32), 
-    }
-    impl Message {
-        fn call(&self) {
-            // Какой-то метод
+fn value_in_cents(coin: Coin) -> u8 {
+    match coin {
+        Coin::Penny => 1,
+        Coin::Nickel => 5,
+        Coin::Dime => 10,
+        Coin::Quarter(state) => {
+            println!("State quarter from {state:?}!");
+            24
         }
     }
-    let m = Message::Write(String::from("Hello"));
-    m.call();
+}
+
+fn main() {
+    let val = value_in_cents(Coin::Quarter(UsState::Alaska));
+    println!("{}", val);
 }
