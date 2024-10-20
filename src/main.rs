@@ -1,32 +1,12 @@
-#[derive(Debug)]
-//Доработка Coin
-enum UsState {
-    Alabama,
-    Alaska,
-    // --snip--
-}
-
-//Конструкция потока управления match
-enum Coin {
-    Penny,
-    Nickel,
-    Dime,
-    Quarter(UsState),
-}
-
-fn value_in_cents(coin: Coin) -> u8 {
-    match coin {
-        Coin::Penny => 1,
-        Coin::Nickel => 5,
-        Coin::Dime => 10,
-        Coin::Quarter(state) => {
-            println!("State quarter from {state:?}!");
-            24
-        }
-    }
-}
-
+//Компактное управление потоком выполнения с if let
 fn main() {
-    let val = value_in_cents(Coin::Quarter(UsState::Alaska));
-    println!("{}", val);
+    let config_max = Some(3u8);
+    match config_max {
+        Some(max) => print!("The maximum is configured to be {max}"),
+        _ => (),
+    }
+    //Второй варинт этого кода
+    if let Some(max) = config_max {
+        println!("The maximum is configured to max {max}");
+    }
 }
